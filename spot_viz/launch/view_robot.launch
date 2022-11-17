@@ -1,0 +1,15 @@
+<launch>
+<!-- <group ns="/r1"> -->
+  <include file="$(find ds4_driver)/launch/ds4_driver.launch" >
+        <arg name="addr" value="" />
+        <arg name="use_standard_msgs" value="true" />
+  </include>
+<!-- </group> -->
+
+  <node name="rviz" pkg="rviz" type="rviz" args="-d $(find spot_viz)/rviz/robot.rviz" output="screen"/>
+  <node pkg="interactive_marker_twist_server" type="marker_server" name="twist_marker_server"  output="screen" >
+    <rosparam command="load" file="$(find spot_driver)/config/planar.yaml" />
+    <param name="link_name" value="body" />
+    <param name="robot_name" value="spot" />
+  </node>
+</launch>
